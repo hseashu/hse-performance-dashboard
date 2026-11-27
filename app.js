@@ -10,12 +10,12 @@
 ================================================ */
 
 const firebaseConfig = {
-  apiKey: "PASTE_API_KEY",
-  authDomain: "PASTE_AUTH_DOMAIN",
-  projectId: "PASTE_PROJECT_ID",
-  storageBucket: "PASTE_STORAGE_BUCKET",
-  messagingSenderId: "PASTE_SENDER_ID",
-  appId: "PASTE_APP_ID"
+  apiKey: "AIzaSyA6bQjfYxiGq9nO_2g_RQ9pn0A0EPVEYIc",
+  authDomain: "hse-performance-dashboard.firebaseapp.com",
+  projectId: "hse-performance-dashboard",
+  storageBucket: "hse-performance-dashboard.firebasestorage.app",
+  messagingSenderId: "513478203045",
+  appId: "1:513478203045:web:6eb0eda870223cc639df4c"
 };
 
 /* ================================================
