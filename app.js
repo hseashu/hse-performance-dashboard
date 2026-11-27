@@ -702,9 +702,10 @@ function bindEvents() {
 
 async function restoreSession(user = auth.currentUser) {
   if (!user) {
-    console.warn("[AUTH] No Firebase user found after refresh.");
-    showLoginScreen();
-    return;
+  console.warn("[AUTH] No Firebase user found.");
+  document.getElementById("login-screen")?.classList.remove("hidden");
+  document.getElementById("app-screen")?.classList.add("hidden");
+  return;
   }
 
   try {
@@ -748,28 +749,31 @@ console.log("[AUTH] Session restoration successful.");
    19. APPLICATION STARTUP
 ================================================ */
 
+
 async function startApplication() {
+  bindEvents();
+
   try {
-    bindEvents();
-
-    $("app-version").textContent = `Version ${APP_CONFIG.VERSION}`;
-
     await initializeFirebase();
 
-    state.firebase.onAuthStateChanged(
-      state.auth,
-      restoreSession
-    );
+    onAuthStateChanged(auth, async (user) => {
+      console.log("[AUTH] Firebase state:", user ? "SIGNED IN" : "SIGNED OUT");
+
+      if (user) {
+        await restoreSession(user);
+      } else {
+        document.getElementById("login-screen")?.classList.remove("hidden");
+        document.getElementById("app-screen")?.classList.add("hidden");
+      }
+    });
 
   } catch (error) {
-    console.error("Application startup error:", error);
-
-    setLoginMessage(
-      "Application initialization failed. Please refresh.",
-      "error"
-    );
+    console.error("[AUTH] Application initialization failed:", error);
+    document.getElementById("login-screen")?.classList.remove("hidden");
+    document.getElementById("app-screen")?.classList.add("hidden");
   }
 }
+
 
 startApplication();
                   
