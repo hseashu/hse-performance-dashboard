@@ -700,34 +700,46 @@ function bindEvents() {
    18. SESSION RESTORATION
 ================================================ */
 
+
 async function restoreSession(user) {
   if (!user) {
-    state.profile = null;
-    showLogin();
+    showLoginScreen();
     return;
   }
 
   try {
-    await user.getIdToken();
+    const idToken = await user.getIdToken();
+    console.log("[AUTH] Firebase session restored.");
 
     const result = await apiRequest("auth.me");
-    state.profile = result.user;
 
+    console.log("[AUTH] Backend auth.me response:", result);
+
+    if (!result || result.ok !== true) {
+      throw new Error(
+        result?.error || result?.message || "Backend authentication failed"
+      );
+    }
+
+    const profile = result.user || result.data?.user;
+
+    if (!profile) {
+      throw new Error("User profile missing in auth.me response");
+    }
+
+    state.profile = profile;
     await initializeUserInterface();
-    showApplication();
+    console.log("[AUTH] Session restoration successful.");
 
   } catch (error) {
-    console.error("Session restoration failed:", error);
+    console.error("[AUTH] Session restoration failed:", error);
+    showLoginScreen();
 
-    await state.firebase.signOut(state.auth);
-    showLogin();
-
-    setLoginMessage(
-      "Your session is no longer valid. Please sign in again.",
-      "error"
-    );
+    // Do not sign out automatically for an API/network error.
+    // Firebase session should remain persistent.
   }
 }
+
 
 /* ================================================
    19. APPLICATION STARTUP
