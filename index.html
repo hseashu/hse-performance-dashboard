@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10243a">
+  <title>HSE Performance Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <section id="login-screen" class="login-screen">
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="brand-logo" id="login-logo">HSE</div>
+        <div>
+          <h1>HSE Performance</h1>
+          <p>Safety Performance Dashboard</p>
+        </div>
+      </div>
+
+      <div class="login-heading">
+        <h2>Welcome Back</h2>
+        <p>Sign in to access your HSE dashboard.</p>
+      </div>
+
+      <form id="login-form">
+        <label for="login-email">Email Address</label>
+        <input
+          type="email"
+          id="login-email"
+          placeholder="Enter your email"
+          autocomplete="username"
+          required
+        >
+
+        <label for="login-password">Password</label>
+        <input
+          type="password"
+          id="login-password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        >
+
+        <button type="submit" id="login-button" class="primary-button">
+          Sign In
+        </button>
+
+        <div id="login-message" class="message" role="status"></div>
+      </form>
+
+      <div class="login-footer">
+        <span>HSE Performance Management System</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATION -->
+  <section id="app-screen" class="app-screen hidden">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo" id="sidebar-logo">HSE</div>
+        <div class="brand-text">
+          <strong>HSE Dashboard</strong>
+          <small>Performance Management</small>
+        </div>
+      </div>
+
+      <div class="sidebar-user">
+        <div class="user-avatar" id="sidebar-avatar">U</div>
+        <div class="user-info">
+          <strong id="sidebar-user-name">User</strong>
+          <small id="sidebar-user-role">Site User</small>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <button class="nav-item active" data-page="dashboard">
+          <span class="nav-icon">▦</span>
+          <span>Dashboard</span>
+        </button>
+
+        <button class="nav-item" data-page="data-entry">
+          <span class="nav-icon">✚</span>
+          <span>Daily Data Entry</span>
+        </button>
+
+        <button class="nav-item" data-page="incidents">
+          <span class="nav-icon">⚠</span>
+          <span>Incident Management</span>
+        </button>
+
+        <button class="nav-item" data-page="recognition">
+          <span class="nav-icon">★</span>
+          <span>Safety Recognition</span>
+        </button>
+
+        <button class="nav-item" data-page="emergency">
+          <span class="nav-icon">☎</span>
+          <span>Emergency Information</span>
+        </button>
+
+        <div id="admin-nav" class="admin-nav hidden">
+          <div class="nav-section-label">ADMINISTRATION</div>
+
+          <button class="nav-item" data-page="sites">
+            <span class="nav-icon">⌂</span>
+            <span>Site Management</span>
+          </button>
+
+          <button class="nav-item" data-page="users">
+            <span class="nav-icon">♙</span>
+            <span>User Management</span>
+          </button>
+
+          <button class="nav-item" data-page="settings">
+            <span class="nav-icon">⚙</span>
+            <span>Dashboard Settings</span>
+          </button>
+        </div>
+      </nav>
+
+      <button id="logout-button" class="logout-button">
+        <span>⇥</span> Sign Out
+      </button>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <main class="main-area">
+
+      <header class="topbar">
+        <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
+          ☰
+        </button>
+
+        <div class="topbar-title">
+          <h2 id="page-title">Dashboard</h2>
+          <p id="page-subtitle">HSE Performance Overview</p>
+        </div>
+
+        <div class="topbar-actions">
+          <span id="current-date" class="date-label"></span>
+          <div id="topbar-avatar" class="user-avatar">U</div>
+        </div>
+      </header>
+
+      <!-- SITE FILTER / CONTEXT -->
+      <div id="dashboard-context" class="dashboard-context">
+        <div class="site-selector-wrap">
+          <label for="site-selector">Project / Site</label>
+          <select id="site-selector">
+            <option value="">Loading sites...</option>
+          </select>
+        </div>
+
+        <div class="period-selector-wrap">
+          <label for="month-selector">Reporting Month</label>
+          <input type="month" id="month-selector">
+        </div>
+      </div>
+
+      <!-- DYNAMIC PAGE CONTENT -->
+      <div id="page-content" class="page-content">
+
+        <!-- Dashboard default content -->
+        <section id="dashboard-page" class="page-section">
+
+          <div class="welcome-banner">
+            <div>
+              <span class="welcome-eyebrow">SAFETY FIRST</span>
+              <h2 id="welcome-heading">Safety Performance</h2>
+              <p>Monitor, improve and maintain a safer workplace.</p>
+            </div>
+            <div class="welcome-decoration">HSE</div>
+          </div>
+
+          <div id="kpi-grid" class="kpi-grid">
+            <!-- KPI cards generated by JavaScript -->
+          </div>
+
+          <div class="dashboard-grid">
+
+            <div class="panel performance-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>HSE Performance Summary</h3>
+                  <p>Monthly and cumulative performance</p>
+                </div>
+              </div>
+
+              <div class="table-container">
+                <table id="performance-table">
+                  <thead>
+                    <tr>
+                      <th>Metric</th>
+                      <th>Monthly</th>
+                      <th>Overall</th>
+                    </tr>
+                  </thead>
+                  <tbody id="performance-table-body">
+                    <!-- Performance rows generated by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="panel activities-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Safety Activities</h3>
+                  <p>Monthly activity summary</p>
+                </div>
+              </div>
+
+              <div id="activity-summary">
+                <!-- Activities generated by JavaScript -->
+              </div>
+            </div>
+
+          </div>
+
+          <div class="dashboard-grid secondary-grid">
+
+            <div class="panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Observation Compliance</h3>
+                  <p>Observation closure status</p>
+                </div>
+              </div>
+              <div id="compliance-summary">
+                <!-- Compliance content -->
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Safety Recognition</h3>
+                  <p>Best Safety Performer</p>
+                </div>
+              </div>
+              <div id="recognition-summary">
+                <!-- Recognition content -->
+              </div>
+            </div>
+
+          </div>
+
+          <div class="panel emergency-panel">
+            <div class="panel-header">
+              <div>
+                <h3>Emergency Information</h3>
+                <p>Site emergency contacts and arrangements</p>
+              </div>
+            </div>
+            <div id="emergency-summary">
+              <!-- Emergency details -->
+            </div>
+          </div>
+
+        </section>
+
+        <!-- Other pages populated by JavaScript -->
+        <section id="other-page" class="page-section hidden">
+          <div class="panel page-placeholder">
+            <div class="placeholder-icon">▦</div>
+            <h3 id="other-page-heading">Page</h3>
+            <p id="other-page-description"></p>
+            <div id="other-page-content"></div>
+          </div>
+        </section>
+
+      </div>
+
+      <footer class="app-footer">
+        HSE Performance Dashboard
+        <span>•</span>
+        <span id="app-version">Version 1.0</span>
+      </footer>
+
+    </main>
+  </section>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
