@@ -68,11 +68,13 @@ function setLoginMessage(message, type = "") {
 }
 
 function showLogin() {
+  $("loading-screen")?.classList.add("hidden");
   $("login-screen")?.classList.remove("hidden");
   $("app-screen")?.classList.add("hidden");
 }
 
 function showApplication() {
+  $("loading-screen")?.classList.add("hidden");
   $("login-screen")?.classList.add("hidden");
   $("app-screen")?.classList.remove("hidden");
 }
