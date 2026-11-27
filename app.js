@@ -704,7 +704,6 @@ function bindEvents() {
    18. SESSION RESTORATION
 ================================================ */
 
-
 async function restoreSession(user = state.auth?.currentUser) {
   if (!user) {
     console.warn("[AUTH] No Firebase user found.");
@@ -743,42 +742,10 @@ async function restoreSession(user = state.auth?.currentUser) {
 }
 
 
-
-
 /* ================================================
    19. APPLICATION STARTUP
 ================================================ */
 
-
-
-async function initializeFirebase() {
-  const version = "10.14.1";
-
-  const [
-    appModule,
-    authModule
-  ] = await Promise.all([
-    import(`https://www.gstatic.com/firebasejs/${version}/firebase-app.js`),
-    import(`https://www.gstatic.com/firebasejs/${version}/firebase-auth.js`)
-  ]);
-
-  const firebaseApp = appModule.initializeApp(firebaseConfig);
-  const authInstance = authModule.getAuth(firebaseApp);
-
-  await authModule.setPersistence(
-    authInstance,
-    authModule.browserLocalPersistence
-  );
-
-  state.firebase = {
-    ...appModule,
-    ...authModule
-  };
-
-  state.auth = authInstance;
-
-  console.log("[AUTH] Firebase initialized with local persistence.");
-}
 
 
 async function startApplication() {
@@ -814,4 +781,8 @@ async function startApplication() {
     showLogin();
   }
 }
+
+
+
 startApplication();
+                  
