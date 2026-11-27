@@ -700,9 +700,9 @@ function bindEvents() {
    18. SESSION RESTORATION
 ================================================ */
 
-
-async function restoreSession(user) {
+async function restoreSession(user = auth.currentUser) {
   if (!user) {
+    console.warn("[AUTH] No Firebase user found after refresh.");
     showLoginScreen();
     return;
   }
@@ -729,16 +729,15 @@ async function restoreSession(user) {
 
     state.profile = profile;
     await initializeUserInterface();
+
     console.log("[AUTH] Session restoration successful.");
 
   } catch (error) {
     console.error("[AUTH] Session restoration failed:", error);
     showLoginScreen();
-
-    // Do not sign out automatically for an API/network error.
-    // Firebase session should remain persistent.
   }
 }
+
 
 
 /* ================================================
