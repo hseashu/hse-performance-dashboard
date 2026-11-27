@@ -728,9 +728,13 @@ async function restoreSession(user = auth.currentUser) {
     }
 
     state.profile = profile;
-    await initializeUserInterface();
 
-    console.log("[AUTH] Session restoration successful.");
+document.getElementById("login-screen")?.classList.add("hidden");
+document.getElementById("app-screen")?.classList.remove("hidden");
+
+await initializeUserInterface();
+
+console.log("[AUTH] Session restoration successful.");
 
   } catch (error) {
     console.error("[AUTH] Session restoration failed:", error);
