@@ -620,6 +620,76 @@ function renderEmptyDashboard() {
   $("emergency-summary").innerHTML = "";
 }
 
+
+/* ================================================
+   SITE MANAGEMENT PAGE
+================================================ */
+
+function renderSiteManagement() {
+  const container = $("other-page-content");
+
+  if (state.profile?.role?.toLowerCase() !== "admin") {
+    container.innerHTML =
+      '<p class="message error">Access denied. Admin only.</p>';
+    return;
+  }
+
+  if (!state.sites.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <h3>No Sites Created</h3>
+        <p>Create your first project site to get started.</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="site-management-header">
+      <div>
+        <h3>All Project Sites</h3>
+        <p>${state.sites.length} site(s) registered</p>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Site Name</th>
+            <th>Site ID</th>
+            <th>Capacity</th>
+            <th>Location</th>
+            <th>State</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${state.sites.map(site => {
+            const id = site.Site_ID || site.siteId || site.id || "";
+            const name = site.Site_Name || site.siteName || site.name || "";
+            const capacity = site.Project_Capacity || site.projectCapacity || "";
+            const location = site.Location || site.location || "";
+            const siteState = site.State || site.state || "";
+            const status = site.Status || site.status || "";
+
+            return `
+              <tr>
+                <td><strong>${escapeHTML(name)}</strong></td>
+                <td>${escapeHTML(id)}</td>
+                <td>${escapeHTML(capacity)}</td>
+                <td>${escapeHTML(location)}</td>
+                <td>${escapeHTML(siteState)}</td>
+                <td>${escapeHTML(status)}</td>
+              </tr>
+            `;
+          }).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
 /* ================================================
    16. NAVIGATION
 ================================================ */
@@ -661,6 +731,10 @@ function navigateTo(page) {
     $("other-page-description").textContent =
       "This module will be connected to its backend operations in the next implementation stage.";
     $("other-page-content").innerHTML = "";
+
+if (page === "sites") {
+  renderSiteManagement();
+}
   }
 
   $("sidebar").classList.remove("open");
