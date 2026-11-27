@@ -9,53 +9,72 @@
 </head>
 <body>
 
-  <!-- LOGIN SCREEN -->
-  <section id="login-screen" class="login-screen">
-    <div class="login-card">
-      <div class="login-brand">
-        <div class="brand-logo" id="login-logo">HSE</div>
-        <div>
-          <h1>HSE Performance</h1>
-          <p>Safety Performance Dashboard</p>
-        </div>
-      </div>
+  
+<!-- LOADING SCREEN -->
+<div id="loading-screen">
+  <div class="loading-content">
+    <div class="loading-shield">✓</div>
+    <h1>HSE PERFORMANCE</h1>
+    <h2>DASHBOARD</h2>
+    <div class="loading-line"></div>
+    <p>Securing your workspace...</p>
+    <span>Please wait</span>
+  </div>
+</div>
 
-      <div class="login-heading">
-        <h2>Welcome Back</h2>
-        <p>Sign in to access your HSE dashboard.</p>
-      </div>
+<!-- LOGIN SCREEN -->
+<section id="login-screen" class="login-screen hidden">
 
-      <form id="login-form">
-        <label for="login-email">Email Address</label>
-        <input
-          type="email"
-          id="login-email"
-          placeholder="Enter your email"
-          autocomplete="username"
-          required
-        >
+  <div class="login-card">
 
-        <label for="login-password">Password</label>
-        <input
-          type="password"
-          id="login-password"
-          placeholder="Enter your password"
-          autocomplete="current-password"
-          required
-        >
-
-        <button type="submit" id="login-button" class="primary-button">
-          Sign In
-        </button>
-
-        <div id="login-message" class="message" role="status"></div>
-      </form>
-
-      <div class="login-footer">
-        <span>HSE Performance Management System</span>
+    <div class="login-brand">
+      <div class="brand-logo" id="login-logo">HSE</div>
+      <div>
+        <h1>HSE Performance</h1>
+        <p>Safety Performance Dashboard</p>
       </div>
     </div>
-  </section>
+
+    <div class="login-heading">
+      <h2>Welcome Back</h2>
+      <p>Sign in to access your HSE dashboard.</p>
+    </div>
+
+    <form id="login-form">
+
+      <label for="login-email">Email Address</label>
+      <input
+        type="email"
+        id="login-email"
+        placeholder="Enter your email"
+        autocomplete="username"
+        required
+      >
+
+      <label for="login-password">Password</label>
+      <input
+        type="password"
+        id="login-password"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+        required
+      >
+
+      <button type="submit" id="login-button" class="primary-button">
+        Sign In
+      </button>
+
+      <div id="login-message" class="message" role="status"></div>
+
+    </form>
+
+    <div class="login-footer">
+      <span>HSE Performance Management System</span>
+    </div>
+
+  </div>
+</section>
+
 
   <!-- APPLICATION -->
   <section id="app-screen" class="app-screen hidden">
