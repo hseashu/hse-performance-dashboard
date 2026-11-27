@@ -1160,3 +1160,86 @@ tbody td:not(:first-child) {
     scroll-behavior: auto !important;
   }
 }
+
+/* HSE BRANDED LOADING SCREEN */
+
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f7fb;
+  text-align: center;
+}
+
+.loading-content {
+  padding: 25px;
+}
+
+.loading-shield {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background: #12345a;
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.loading-content h1 {
+  margin: 0;
+  color: #12345a;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.loading-content h2 {
+  margin: 5px 0 25px;
+  color: #2876b9;
+  font-size: 19px;
+  letter-spacing: 3px;
+}
+
+.loading-line {
+  width: 150px;
+  height: 4px;
+  margin: 0 auto 18px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #dce5ef;
+  position: relative;
+}
+
+.loading-line::after {
+  content: "";
+  position: absolute;
+  width: 45%;
+  height: 100%;
+  background: #2876b9;
+  border-radius: 10px;
+  animation: loadingMove 1.2s ease-in-out infinite;
+}
+
+.loading-content p {
+  color: #253b54;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 7px;
+}
+
+.loading-content span {
+  color: #78899b;
+  font-size: 12px;
+}
+
+@keyframes loadingMove {
+  from { left: -45%; }
+  to { left: 100%; }
+}
