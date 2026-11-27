@@ -96,6 +96,7 @@ function currentMonth() {
    4. FIREBASE INITIALIZATION
 ================================================ */
 
+
 async function initializeFirebase() {
   const version = "10.14.1";
 
@@ -107,11 +108,11 @@ async function initializeFirebase() {
     import(`https://www.gstatic.com/firebasejs/${version}/firebase-auth.js`)
   ]);
 
-  const app = appModule.initializeApp(firebaseConfig);
-  const auth = authModule.getAuth(app);
+  const firebaseApp = appModule.initializeApp(firebaseConfig);
+  const authInstance = authModule.getAuth(firebaseApp);
 
   await authModule.setPersistence(
-    auth,
+    authInstance,
     authModule.browserLocalPersistence
   );
 
@@ -120,8 +121,11 @@ async function initializeFirebase() {
     ...authModule
   };
 
-  state.auth = auth;
+  state.auth = authInstance;
+
+  console.log("[AUTH] Firebase initialized with local persistence.");
 }
+
 
 /* ================================================
    5. API COMMUNICATION
@@ -700,27 +704,22 @@ function bindEvents() {
    18. SESSION RESTORATION
 ================================================ */
 
-async function restoreSession(user = auth.currentUser) {
+
+async function restoreSession(user = state.auth?.currentUser) {
   if (!user) {
-  console.warn("[AUTH] No Firebase user found.");
-  document.getElementById("login-screen")?.classList.remove("hidden");
-  document.getElementById("app-screen")?.classList.add("hidden");
-  return;
+    console.warn("[AUTH] No Firebase user found.");
+    showLogin();
+    return;
   }
 
   try {
-    const idToken = await user.getIdToken();
+    await user.getIdToken();
+
     console.log("[AUTH] Firebase session restored.");
 
     const result = await apiRequest("auth.me");
 
     console.log("[AUTH] Backend auth.me response:", result);
-
-    if (!result || result.ok !== true) {
-      throw new Error(
-        result?.error || result?.message || "Backend authentication failed"
-      );
-    }
 
     const profile = result.user || result.data?.user;
 
@@ -728,20 +727,21 @@ async function restoreSession(user = auth.currentUser) {
       throw new Error("User profile missing in auth.me response");
     }
 
+    state.user = user;
     state.profile = profile;
 
-document.getElementById("login-screen")?.classList.add("hidden");
-document.getElementById("app-screen")?.classList.remove("hidden");
+    showApplication();
 
-await initializeUserInterface();
+    await initializeUserInterface();
 
-console.log("[AUTH] Session restoration successful.");
+    console.log("[AUTH] Session restoration successful.");
 
   } catch (error) {
     console.error("[AUTH] Session restoration failed:", error);
-    showLoginScreen();
+    showLogin();
   }
 }
+
 
 
 
@@ -750,30 +750,68 @@ console.log("[AUTH] Session restoration successful.");
 ================================================ */
 
 
+
+async function initializeFirebase() {
+  const version = "10.14.1";
+
+  const [
+    appModule,
+    authModule
+  ] = await Promise.all([
+    import(`https://www.gstatic.com/firebasejs/${version}/firebase-app.js`),
+    import(`https://www.gstatic.com/firebasejs/${version}/firebase-auth.js`)
+  ]);
+
+  const firebaseApp = appModule.initializeApp(firebaseConfig);
+  const authInstance = authModule.getAuth(firebaseApp);
+
+  await authModule.setPersistence(
+    authInstance,
+    authModule.browserLocalPersistence
+  );
+
+  state.firebase = {
+    ...appModule,
+    ...authModule
+  };
+
+  state.auth = authInstance;
+
+  console.log("[AUTH] Firebase initialized with local persistence.");
+}
+
+
 async function startApplication() {
   bindEvents();
 
   try {
     await initializeFirebase();
 
-    onAuthStateChanged(auth, async (user) => {
-      console.log("[AUTH] Firebase state:", user ? "SIGNED IN" : "SIGNED OUT");
+    state.firebase.onAuthStateChanged(
+      state.auth,
+      async (user) => {
+        console.log(
+          "[AUTH] Firebase state:",
+          user ? "SIGNED IN" : "SIGNED OUT"
+        );
 
-      if (user) {
-        await restoreSession(user);
-      } else {
-        document.getElementById("login-screen")?.classList.remove("hidden");
-        document.getElementById("app-screen")?.classList.add("hidden");
+        if (user) {
+          await restoreSession(user);
+        } else {
+          state.user = null;
+          state.profile = null;
+          showLogin();
+        }
       }
-    });
+    );
 
   } catch (error) {
-    console.error("[AUTH] Application initialization failed:", error);
-    document.getElementById("login-screen")?.classList.remove("hidden");
-    document.getElementById("app-screen")?.classList.add("hidden");
+    console.error(
+      "[AUTH] Application initialization failed:",
+      error
+    );
+
+    showLogin();
   }
 }
-
-
 startApplication();
-                  
