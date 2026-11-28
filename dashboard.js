@@ -80,8 +80,8 @@ function dashModule() {
 
     // Key Safety Message (Image or Text)
     const keyMsg = dashSettings.key_message || {};
-    const keyMsgHTML = keyMsg.image 
-      ? `<img src="${keyMsg.image}" style="max-height: 100%; max-width: 100%; object-fit: contain;" />`
+      const keyMsgHTML = keyMsg.image 
+      ? `<img src="${keyMsg.image}" />`
       : `<div class="hb-msg-text">${escapeHTML(keyMsg.value || "Work Safe, Go Home Safe")}</div>`;
 
     // Emergency Info (Dynamic from settings or default)
