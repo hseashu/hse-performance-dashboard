@@ -704,9 +704,10 @@ function navigateTo(page) {
     );
   });
 
-  const titles = {
+    const titles = {
     dashboard: ["Dashboard", "HSE Performance Overview"],
     "data-entry": ["Daily Data Entry", "Daily HSE reporting"],
+    "training-topics": ["Training Topics", "Manage training dropdown options"],
     incidents: ["Incident Management", "Incident records and actions"],
     recognition: ["Safety Recognition", "Safety performer management"],
     emergency: ["Emergency Information", "Emergency response details"],
@@ -739,12 +740,21 @@ function navigateTo(page) {
       }
     }
 
-    if (page === "data-entry") {
+        if (page === "data-entry") {
       if (window.__hseDailyEntry) {
         window.__hseDailyEntry().render();
       } else {
         $("other-page-content").innerHTML =
           '<p class="message error">Daily entry module not loaded.</p>';
+      }
+    }
+
+    if (page === "training-topics") {
+      if (window.__hseTrainingTopics) {
+        window.__hseTrainingTopics().render();
+      } else {
+        $("other-page-content").innerHTML =
+          '<p class="message error">Training topics module not loaded.</p>';
       }
     }
   }
