@@ -121,7 +121,7 @@ function dashModule() {
           </div>
         </header>
 
-        <div class="hb-subheader">SAFETY FIRST – ZERO HARM</div>
+        <div class="hb-subheader">ZERO HARM – ZERO COMPROMISE</div>
 
         <div class="hb-grid">
           <!-- COLUMN 1 -->
@@ -140,7 +140,7 @@ function dashModule() {
             </div>
 
             <div class="hb-panel hb-stats-panel">
-              <div class="hb-panel-title">Monthly HSE Statistics</div>
+              <div class="hb-panel-title">HSE Statistics</div>
               <table class="hb-table">
                 <thead><tr><th style="text-align:center">Particulars</th><th style="text-align:center">Entire Project</th><th style="text-align:center">Current Month</th></tr></thead>
                 <tbody>
@@ -184,7 +184,7 @@ function dashModule() {
             </div>
 
             <div class="hb-panel hb-comp-panel">
-              <div class="hb-panel-title">HSE Compliance</div>
+              <div class="hb-panel-title">OBSERVATION VIEW</div>
               <table class="hb-table">
                 <thead><tr><th style="text-align:center">Metric</th><th style="text-align:center">Entire Project</th><th style="text-align:center">Current Month</th></tr></thead>
                 <tbody>
@@ -232,14 +232,14 @@ function dashModule() {
             </div>
 
             <div class="hb-panel hb-emergency-panel">
-              <div class="hb-panel-title">Emergency Information</div>
+              <div class="hb-panel-title">Emergency Contacts Information</div>
               <div class="hb-emg-grid">
                 ${emgHTML}
               </div>
             </div>
 
             <div class="hb-panel hb-msg-panel">
-              <div class="hb-panel-title">Safety Slogan / Message</div>
+              <div class="hb-panel-title">A Message For Every Life</div>
               <div style="height:100%; display:flex; align-items:center; justify-content:center; padding:10px;">
                 ${keyMsgHTML}
               </div>
