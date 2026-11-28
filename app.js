@@ -782,6 +782,14 @@ function navigateTo(page) {
           '<p class="message error">Training topics module not loaded.</p>';
       }
     }
+        if (page === "settings") {
+      if (window.__hseDashboardSettings) {
+        window.__hseDashboardSettings().render();
+      } else {
+        $("other-page-content").innerHTML =
+          '<p class="message error">Settings module not loaded.</p>';
+      }
+        }
   }
 
   $("sidebar").classList.remove("open");
