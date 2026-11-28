@@ -41,6 +41,9 @@ const state = {
   loading: false
 };
 
+/* === HSE RUNTIME EXPOSURE (module bridge) === */
+window.__hse = { apiRequest: null, state, $, escapeHTML, showMessage };
+
 /* ================================================
    3. DOM HELPERS
 ================================================ */
@@ -859,6 +862,12 @@ async function startApplication() {
 }
 
 
+
+/* === HSE MODULE BRIDGE (do not remove) === */
+window.__hse.apiRequest = apiRequest;
+window.__hse.$ = $;
+window.__hse.escapeHTML = escapeHTML;
+window.__hse.showMessage = showMessage;
 
 startApplication();
                   
