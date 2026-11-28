@@ -799,7 +799,7 @@ tbody td:not(:first-child) {
 
 .recognition-info .award-label {
   color: #b27a1d;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 750;
   text-transform: uppercase;
 }
@@ -827,7 +827,7 @@ tbody td:not(:first-child) {
 }
 
 .emergency-card {
-  padding: 13px;
+  padding: 16px;
   background: #f8fafc;
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -835,13 +835,13 @@ tbody td:not(:first-child) {
 
 .emergency-card small {
   display: block;
-  font-size: 10px;
+  font-size: 14px;
   color: var(--muted);
 }
 
 .emergency-card strong {
   display: block;
-  font-size: 13px;
+  font-size: 15px;
   margin-top: 4px;
   overflow-wrap: anywhere;
 }
@@ -852,7 +852,7 @@ tbody td:not(:first-child) {
   border-left: 4px solid var(--warning);
   border-radius: 7px;
   background: var(--warning-bg);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 /* OTHER PAGES */
