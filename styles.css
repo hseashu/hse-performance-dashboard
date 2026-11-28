@@ -1875,6 +1875,12 @@ body.is-fullscreen .hse-board {
   color: #fff;
   border: 1px solid #B7D0F2;
 }
+/* SAFE MANHOURS ICON */
+.hb-mh-icon {
+  font-size: 25px;
+  line-height: 1;
+  margin-bottom: 5px;
+}
 .hb-mh-card.blue .hb-mh-title, .hb-mh-card.blue .hb-mh-sub { color: #e2ecf7; }
 .hb-mh-title { font-size: clamp(10px, 0.9vw, 12px); font-weight: 600; color: #475467; text-transform: uppercase; }
 .hb-mh-val { font-size: clamp(20px, 2vw, 28px); font-weight: 800; margin: 2px 0; }
