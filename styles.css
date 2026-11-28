@@ -579,7 +579,6 @@ button {
 }
 
 
-
 /* TABLE - ICE BLUE CORPORATE */
 
 .table-container {
@@ -597,21 +596,35 @@ table {
   color: #12345A;
 }
 
+/* TABLE MAIN TITLE */
+
+.table-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #12345A;
+}
+
+/* TABLE SUBHEADERS */
+
 thead th {
-  padding: 12px 10px;
+  padding: 13px 10px;
   text-align: left;
-  font-size: 12px;
+  font-size: 15px !important;
   font-weight: 800;
   color: #12345A;
   background: #E8F1FC;
   border-bottom: 1px solid #C8DCF5;
+  line-height: 1.4;
 }
+
+/* TABLE CONTENTS */
 
 tbody td {
   padding: 12px 10px;
-  font-size: 14px;
+  font-size: 14px !important;
   color: #12345A;
   border-bottom: 1px solid #C8DCF5;
+  line-height: 1.4;
 }
 
 tbody tr:nth-child(odd) {
