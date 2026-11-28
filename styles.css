@@ -1776,6 +1776,9 @@ body.is-fullscreen .hse-board {
 }
 
 .hb-col { display: flex; flex-direction: column; gap: 6px; height: 100%; }
+.hb-recognition-panel { flex: 3; }
+.hb-emergency-panel { flex: 0 0 auto; min-height: 100px; max-height: 150px; }
+.hb-msg-panel { flex: 2; }
 
 /* PANELS */
 .hb-panel {
@@ -1855,11 +1858,13 @@ body.is-fullscreen .hse-board {
 .hb-rec-text p { margin: 2px 0 0; font-size: clamp(11px, 1vw, 13px); color: #1e7a3d; font-weight: 700; }
 
 /* EMERGENCY */
-.hb-emg-grid { padding: 6px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: clamp(9px, 0.8vw, 11px); }
+.hb-emg-grid { padding: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: clamp(11px, 1vw, 13px); }
 .hb-emg-grid div strong { color: #b02a2a; }
 
 /* MESSAGE */
 .hb-msg-text { padding: 8px; text-align: center; font-size: clamp(12px, 1.2vw, 16px); font-weight: 700; color: #1e7a3d; font-style: italic; display: flex; align-items: center; justify-content: center; height: 100%; }
+.hb-msg-panel > div:last-child { overflow: hidden; padding: 0 !important; }
+.hb-msg-panel img { width: 100%; height: 100%; object-fit: contain; object-position: center; border-radius: 6px; }
 
 /* FOOTER */
 .hb-footer {
