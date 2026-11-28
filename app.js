@@ -269,7 +269,8 @@ async function initializeUserInterface() {
   $("sidebar-user-name").textContent = name;
   $("sidebar-user-role").textContent = role;
   $("sidebar-avatar").textContent = name.charAt(0).toUpperCase();
-  $("topbar-avatar").textContent = name.charAt(0).toUpperCase();
+  const avatarEl = $("topbar-avatar");
+  if (avatarEl) avatarEl.style.display = "none"; // Hide 'A' icon
   $("welcome-heading").textContent = `Welcome, ${name}`;
 
   const isAdmin = role.toLowerCase() === "admin";
@@ -313,10 +314,13 @@ async function loadSites() {
   const selector = $("site-selector");
   selector.innerHTML = "";
 
+    const siteWrap = document.querySelector(".site-selector-wrap");
   if (state.profile.role.toLowerCase() === "admin") {
     selector.disabled = false;
+    if(siteWrap) siteWrap.style.display = "block";
   } else {
     selector.disabled = true;
+    if(siteWrap) siteWrap.style.display = "none"; // Hide filter for site user
   }
 
   state.sites.forEach(site => {
@@ -359,8 +363,8 @@ async function loadSites() {
 async function loadDashboard() {
   if (!state.selectedSite) return;
 
-  const content = $("kpi-grid");
-  content.innerHTML = "<p>Loading dashboard data...</p>";
+  const content = $("dashboard-page");
+  if (content) content.innerHTML = '<div style="padding:50px;text-align:center;color:#666;"><div class="hse-loader-spinner" style="margin:0 auto 15px;"></div>Loading dashboard data...</div>';
 
   try {
     const result = await apiRequest("dashboard.get", {
