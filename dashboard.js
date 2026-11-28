@@ -126,18 +126,49 @@ function dashModule() {
         <div class="hb-grid">
           <!-- COLUMN 1 -->
           <div class="hb-col">
-            <div class="hb-manhours-wrap">
-              <div class="hb-mh-card">
-                <div class="hb-mh-title">Safe Manhours</div>
-                <div class="hb-mh-val">${fmt(mManhours)}</div>
-                <div class="hb-mh-sub">This Month</div>
-              </div>
-              <div class="hb-mh-card blue">
-                <div class="hb-mh-title">Safe Manhours</div>
-                <div class="hb-mh-val">${fmt(oManhours)}</div>
-                <div class="hb-mh-sub">Entire Project</div>
-              </div>
-            </div>
+ <div class="hb-manhours-wrap">
+
+  <!-- THIS MONTH CARD -->
+  <div class="hb-mh-card">
+
+    <svg class="hb-mh-shield" viewBox="0 0 64 72">
+      <path d="M32 3 L57 13 V33 Q55 53 32 68 Q9 53 7 33 V13 Z"
+        fill="#12345A" stroke="#12345A" stroke-width="2"/>
+      <path d="M32 11 L50 18 V33 Q48 48 32 59 Q16 48 14 33 V18 Z"
+        fill="#EAF4FF"/>
+      <circle cx="43" cy="48" r="12" fill="#16A34A"/>
+      <path d="M36 48 L41 53 L50 43"
+        fill="none" stroke="#FFFFFF" stroke-width="3.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
+    <div class="hb-mh-title">Safe Manhours</div>
+    <div class="hb-mh-val">${fmt(mManhours)}</div>
+    <div class="hb-mh-sub">This Month</div>
+
+  </div>
+
+  <!-- ENTIRE PROJECT CARD -->
+  <div class="hb-mh-card blue">
+
+    <svg class="hb-mh-shield" viewBox="0 0 64 72">
+      <path d="M32 3 L57 13 V33 Q55 53 32 68 Q9 53 7 33 V13 Z"
+        fill="none" stroke="#FFFFFF" stroke-width="3"/>
+      <path d="M32 11 L50 18 V33 Q48 48 32 59 Q16 48 14 33 V18 Z"
+        fill="#FFFFFF" opacity="0.18"/>
+      <circle cx="43" cy="48" r="12" fill="#16A34A"/>
+      <path d="M36 48 L41 53 L50 43"
+        fill="none" stroke="#FFFFFF" stroke-width="3.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
+    <div class="hb-mh-title">Safe Manhours</div>
+    <div class="hb-mh-val">${fmt(oManhours)}</div>
+    <div class="hb-mh-sub">Entire Project</div>
+
+  </div>
+
+</div>
 
             <div class="hb-panel hb-stats-panel">
               <div class="hb-panel-title">HSE Statistics</div>
