@@ -370,7 +370,11 @@ async function loadDashboard() {
 
     state.dashboard = result.data || result.dashboard || result;
 
-    renderDashboard(state.dashboard);
+    if (window.__hseDashboard) {
+      window.__hseDashboard().render(state.dashboard);
+    } else {
+      renderDashboard(state.dashboard);
+    }
 
   } catch (error) {
     console.error("Dashboard loading error:", error);
