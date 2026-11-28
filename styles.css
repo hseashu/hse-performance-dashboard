@@ -578,33 +578,48 @@ button {
   margin-top: 3px;
 }
 
-/* TABLE */
+
+
+/* TABLE - ICE BLUE CORPORATE */
 
 .table-container {
   width: 100%;
   overflow-x: auto;
+  border: 1px solid #C8DCF5;
+  border-radius: 10px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   min-width: 380px;
+  background: #F3F8FF;
+  color: #12345A;
 }
 
 thead th {
-  padding: 11px 10px;
+  padding: 12px 10px;
   text-align: left;
-  font-size: 10px;
-  font-weight: 750;
-  color: #64748b;
-  background: #f7f9fc;
-  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 800;
+  color: #12345A;
+  background: #E8F1FC;
+  border-bottom: 1px solid #C8DCF5;
 }
 
 tbody td {
-  padding: 11px 10px;
-  font-size: 12px;
-  border-bottom: 1px solid #edf1f6;
+  padding: 12px 10px;
+  font-size: 14px;
+  color: #12345A;
+  border-bottom: 1px solid #C8DCF5;
+}
+
+tbody tr:nth-child(odd) {
+  background: #FFFFFF;
+}
+
+tbody tr:nth-child(even) {
+  background: #F0F6FD;
 }
 
 tbody tr:last-child td {
@@ -612,8 +627,8 @@ tbody tr:last-child td {
 }
 
 tbody td:first-child {
-  font-weight: 600;
-  color: #344256;
+  font-weight: 700;
+  color: #12345A;
 }
 
 tbody td:not(:first-child) {
@@ -660,7 +675,7 @@ tbody td:not(:first-child) {
 .activity-info small {
   display: block;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 2px;
 }
 
@@ -721,14 +736,14 @@ tbody td:not(:first-child) {
 
 .compliance-detail {
   padding: 13px;
-  border-radius: 10px;
+  border-radius: 12px;
   background: #f7f9fc;
 }
 
 .compliance-detail small {
   display: block;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .compliance-detail strong {
@@ -736,6 +751,7 @@ tbody td:not(:first-child) {
   font-size: 19px;
   margin-top: 4px;
 }
+
 
 /* RECOGNITION */
 
@@ -781,7 +797,7 @@ tbody td:not(:first-child) {
 }
 
 .recognition-info p {
-  font-size: 11px;
+  font-size: 12px;
   color: #776950;
 }
 
