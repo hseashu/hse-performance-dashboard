@@ -206,12 +206,25 @@ function dashModule() {
             <div class="hb-panel hb-recognition-panel">
               <div class="hb-panel-title">Safety Recognition</div>
               <div class="hb-rec-box" style="flex-wrap: wrap; justify-content: center; gap: 15px;">
-                ${(data.recognition?.list || [data.recognition]).slice(0, 3).map(r => `
-                  <div style="text-align:center; flex: 1; min-width: 80px;">
-                    ${r.Photo_URL ? `<img src="${escapeHTML(r.Photo_URL)}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid #d4af37;" />` : `<div style="width:60px; height:60px; border-radius:50%; background:#e2ecf7; margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:24px; color:#0e5aa7;">★</div>`}
-                    <div style="font-size:11px; font-weight:700; margin-top:5px; color:#10243a;">${escapeHTML(r.Employee_Name || r.name || "TBA")}</div>
-                  </div>
-                `).join("")}
+                                ${(() => {
+                  let recList = [];
+                  if (Array.isArray(data.recognition?.list)) recList = data.recognition.list;
+                  else if (data.recognition && Object.keys(data.recognition).length > 0) recList = [data.recognition];
+                  
+                  if (recList.length === 0) recList = [{}]; // Fallback
+
+                  return recList.slice(0, 3).map(r => {
+                    if (!r) return '';
+                    const photo = r.Photo_URL || r.photoUrl || "";
+                    const name = r.Employee_Name || r.name || "To be announced";
+                    return `
+                      <div style="text-align:center; flex: 1; min-width: 80px;">
+                        ${photo ? `<img src="${escapeHTML(photo)}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid #d4af37;" />` : `<div style="width:60px; height:60px; border-radius:50%; background:#e2ecf7; margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:24px; color:#0e5aa7;">★</div>`}
+                        <div style="font-size:11px; font-weight:700; margin-top:5px; color:#10243a;">${escapeHTML(name)}</div>
+                      </div>
+                    `;
+                  }).join("");
+                })()}
               </div>
             </div>
 
