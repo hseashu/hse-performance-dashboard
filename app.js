@@ -726,19 +726,27 @@ function navigateTo(page) {
   $("other-page").classList.toggle("hidden", isDashboard);
   $("dashboard-context").classList.toggle("hidden", !isDashboard);
 
-  if (!isDashboard) {
+    if (!isDashboard) {
     $("other-page-heading").textContent = title[0];
-    $("other-page-description").textContent =
-      "This module will be connected to its backend operations in the next implementation stage.";
+    $("other-page-description").textContent = "";
     $("other-page-content").innerHTML = "";
 
-if (page === "sites") {
-  if (window.__hseSiteManagement) {
-    window.__hseSiteManagement().render();
-  } else {
-    renderSiteManagement();
-  }
-}
+    if (page === "sites") {
+      if (window.__hseSiteManagement) {
+        window.__hseSiteManagement().render();
+      } else {
+        renderSiteManagement();
+      }
+    }
+
+    if (page === "data-entry") {
+      if (window.__hseDailyEntry) {
+        window.__hseDailyEntry().render();
+      } else {
+        $("other-page-content").innerHTML =
+          '<p class="message error">Daily entry module not loaded.</p>';
+      }
+    }
   }
 
   $("sidebar").classList.remove("open");
@@ -870,5 +878,8 @@ window.__hse = {
   escapeHTML,
   showMessage
 };
+
+/* Expose dashboard refresh for other modules */
+window.__hseReloadDashboard = loadDashboard;
 
 startApplication();
