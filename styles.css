@@ -1864,16 +1864,16 @@ body.is-fullscreen .hse-board {
 }
 .hb-mh-card {
   flex: 1;
-  background: #f7fbff;
-  border: 1px solid #0e5aa7;
+  background: #DCEBFF;
+  border: 1px solid #12345A;
   border-radius: 6px;
   padding: 8px;
   text-align: center;
 }
 .hb-mh-card.blue {
-  background: #0e5aa7;
+  background: #12345A;
   color: #fff;
-  border: none;
+  border: #B7D0F2;
 }
 .hb-mh-card.blue .hb-mh-title, .hb-mh-card.blue .hb-mh-sub { color: #e2ecf7; }
 .hb-mh-title { font-size: clamp(10px, 0.9vw, 12px); font-weight: 600; color: #475467; text-transform: uppercase; }
