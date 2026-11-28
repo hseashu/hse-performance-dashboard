@@ -1873,7 +1873,7 @@ body.is-fullscreen .hse-board {
 .hb-mh-card.blue {
   background: #12345A;
   color: #fff;
-  border: #B7D0F2;
+  border: 1px solid #B7D0F2;
 }
 .hb-mh-card.blue .hb-mh-title, .hb-mh-card.blue .hb-mh-sub { color: #e2ecf7; }
 .hb-mh-title { font-size: clamp(10px, 0.9vw, 12px); font-weight: 600; color: #475467; text-transform: uppercase; }
