@@ -1770,7 +1770,7 @@ body.is-fullscreen .hse-board {
 /* Base size (fallback) */
 .hb-logo { max-height: 100px; max-width: 200px; } 
 .hb-logo.landscape { width: 288px; height: 192px; } /* 2 inch x 1 inch */
-.hb-logo.portrait { width: 67px; height: 96px; }  /* 0.7 inch x 1 inch */
+.hb-logo.portrait { width: 192px; height: 92px; }  /* 0.7 inch x 1 inch */
 
 .hb-fs-btn {
   background: rgba(255,255,255,0.2);
