@@ -172,7 +172,8 @@ function dsModule() {
     setupLogoUploader("right");
     // --------------------------
 
-    // Image Upload
+  
+    // KEY MESSAGE IMAGE UPLOAD - DRIVE STORAGE
     const fileInp = $("ds-msg-file");
     const msgBtn = $("ds-msg-btn");
     const delBtn = $("ds-msg-del-btn");
@@ -185,47 +186,81 @@ function dsModule() {
       if (!file) return;
 
       if (file.size > 1024 * 1024) {
-        return showMessage("File too large (max 1MB).", "error");
+        showMessage("File too large (max 1MB).", "error");
+        fileInp.value = "";
+        return;
       }
 
       const reader = new FileReader();
+
       reader.onload = async (ev) => {
         const base64 = ev.target.result;
-        if (L) L.show("Uploading image...");
+
+        if (L) L.show("Uploading image to Drive...");
+
         try {
-          await apiRequest("settings.save", {
+          await apiRequest("settings.image.upload", {
             data: {
               key: "key_message",
-              imageBase64: base64.split(",")[1],
+              fileName: file.name,
+              base64Data: base64.split(",")[1],
               mimeType: file.type
             }
           });
-          showMessage("Image uploaded.", "success");
-          if (L) L.hide();
-          loadAndRender(); // reload
+
+          preview.innerHTML =
+            `<img src="${base64}" style="max-height:100%; max-width:100%; object-fit:contain;" />`;
+
+          delBtn.style.display = "inline-block";
+
+          showMessage("Image uploaded successfully.", "success");
+
         } catch (err) {
-          if (L) L.hide();
+          console.error("Key message image upload error:", err);
           showMessage("Upload failed: " + err.message, "error");
+
+        } finally {
+          if (L) L.hide();
+          fileInp.value = "";
         }
       };
+
+      reader.onerror = () => {
+        showMessage("Unable to read selected image.", "error");
+        fileInp.value = "";
+      };
+
       reader.readAsDataURL(file);
     });
 
+
+    // DELETE KEY MESSAGE IMAGE
     delBtn.addEventListener("click", async () => {
       if (!confirm("Delete key message image?")) return;
-      if (L) L.show("Deleting...");
+
+      if (L) L.show("Deleting image...");
+
       try {
-        await apiRequest("settings.save", {
-          data: { key: "key_message", value: "", imageBase64: "" }
+        await apiRequest("settings.image.delete", {
+          data: {
+            key: "key_message"
+          }
         });
+
+        preview.innerHTML = "<span>No image uploaded</span>";
+        delBtn.style.display = "none";
+
         showMessage("Image deleted.", "success");
-        if (L) L.hide();
-        loadAndRender();
+
       } catch (err) {
+        console.error("Key message image deletion error:", err);
+        showMessage("Delete failed: " + err.message, "error");
+
+      } finally {
         if (L) L.hide();
-        showMessage("Delete failed.", "error");
       }
     });
+
 
     // Emergency List
     const emgContainer = $("ds-emg-list");
