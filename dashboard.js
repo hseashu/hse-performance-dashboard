@@ -100,22 +100,25 @@ function dashModule() {
     board.innerHTML = `
       <div class="hse-board">
         
-        <header class="hb-header">
-          ${brandLogos.left ? `<img src="${brandLogos.left.dataUrl}" class="hb-logo" />` : '<div class="hb-logo-space"></div>'}
+                <header class="hb-header">
+          <div class="hb-header-side left-side">
+            ${brandLogos.left ? `<img src="${brandLogos.left.dataUrl}" class="hb-logo" onload="this.classList.add(this.naturalWidth > this.naturalHeight ? 'landscape' : 'portrait')" />` : ''}
+          </div>
           
           <div class="hb-header-text">
             <h1>SITE HSE PERFORMANCE BOARD</h1>
             <p>Project: ${escapeHTML(siteName)} | Month: ${escapeHTML(monthStr)}</p>
           </div>
 
-          <div style="display:flex; align-items:center; gap:10px;">
-            <span class="hb-date" style="font-size:12px; font-weight:600; opacity:0.9;">${new Date().toLocaleDateString('en-GB')}</span>
-            <button class="hb-fs-btn" id="hb-fullscreen-btn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-            </button>
+          <div class="hb-header-side right-side">
+            <div style="display:flex; align-items:center; gap:10px; margin-right:10px;">
+              <span class="hb-date" style="font-size:12px; font-weight:600; opacity:0.9;">${new Date().toLocaleDateString('en-GB')}</span>
+              <button class="hb-fs-btn" id="hb-fullscreen-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              </button>
+            </div>
+            ${brandLogos.right ? `<img src="${brandLogos.right.dataUrl}" class="hb-logo" onload="this.classList.add(this.naturalWidth > this.naturalHeight ? 'landscape' : 'portrait')" />` : ''}
           </div>
-
-          ${brandLogos.right ? `<img src="${brandLogos.right.dataUrl}" class="hb-logo" />` : '<div class="hb-logo-space"></div>'}
         </header>
 
         <div class="hb-subheader">SAFETY FIRST – ZERO HARM</div>
