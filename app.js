@@ -858,4 +858,13 @@ async function startApplication() {
   }
 }
 
+/* === HSE MODULE BRIDGE === */
+window.__hse = {
+  apiRequest,
+  state,
+  $,
+  escapeHTML,
+  showMessage
+};
+
 startApplication();
