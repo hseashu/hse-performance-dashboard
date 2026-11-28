@@ -1243,3 +1243,238 @@ tbody td:not(:first-child) {
   from { left: -45%; }
   to { left: 100%; }
 }
+/* ================================================
+   HSE UNIVERSAL LOADER
+================================================ */
+
+.hse-loader-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(10, 22, 40, 0.55);
+  backdrop-filter: blur(2px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.hse-loader-overlay.visible {
+  display: flex;
+}
+
+.hse-loader-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 28px 24px;
+  min-width: 240px;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: hseLoaderFadeIn 0.2s ease;
+}
+
+@keyframes hseLoaderFadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.hse-loader-spinner {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 14px;
+  border: 4px solid #e2ecf7;
+  border-top-color: #0e5aa7;
+  border-radius: 50%;
+  animation: hseLoaderSpin 0.8s linear infinite;
+}
+
+@keyframes hseLoaderSpin {
+  to { transform: rotate(360deg); }
+}
+
+.hse-loader-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #10243a;
+  margin: 0 0 14px;
+}
+
+.hse-loader-bar {
+  width: 100%;
+  height: 4px;
+  background: #e2ecf7;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.hse-loader-bar span {
+  display: block;
+  height: 100%;
+  width: 40%;
+  background: linear-gradient(90deg, #0e5aa7, #2f8ddc);
+  border-radius: 4px;
+  animation: hseLoaderSlide 1.2s ease-in-out infinite;
+}
+
+@keyframes hseLoaderSlide {
+  0%   { transform: translateX(-100%); }
+  50%  { transform: translateX(150%); }
+  100% { transform: translateX(300%); }
+}
+
+/* Button busy state */
+.hse-btn-busy {
+  opacity: 0.7;
+  cursor: wait !important;
+  pointer-events: none;
+  position: relative;
+}
+
+/* Skeleton rows */
+.hse-skeleton-row td {
+  padding: 12px 10px;
+}
+
+.hse-skeleton-line {
+  display: block;
+  height: 12px;
+  width: 100%;
+  background: linear-gradient(90deg, #eef3f9 0%, #dde7f2 50%, #eef3f9 100%);
+  background-size: 200% 100%;
+  border-radius: 6px;
+  animation: hseSkeleton 1.2s linear infinite;
+}
+
+@keyframes hseSkeleton {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Status pill (used by site-management and future modules) */
+.status-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-pill.active {
+  background: #e6f5ea;
+  color: #1e7a3d;
+}
+
+.status-pill.inactive {
+  background: #fdecec;
+  color: #b02a2a;
+}
+
+/* Small buttons */
+.btn-small {
+  display: inline-block;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid #cfd9e5;
+  background: #ffffff;
+  color: #10243a;
+  cursor: pointer;
+  margin: 2px;
+}
+
+.btn-small:hover {
+  background: #f3f8fd;
+}
+
+.btn-small.btn-deactivate {
+  border-color: #f0b8b8;
+  color: #b02a2a;
+}
+
+.btn-small.btn-activate {
+  border-color: #b8e0c6;
+  color: #1e7a3d;
+}
+
+/* Site Management header */
+.site-mgmt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.site-mgmt-header h3 {
+  margin: 0 0 4px;
+}
+
+.site-mgmt-header p {
+  margin: 0;
+  color: #667085;
+  font-size: 13px;
+}
+
+/* Site form */
+.sm-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sm-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.sm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sm-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #344054;
+}
+
+.sm-field input {
+  padding: 10px 12px;
+  border: 1px solid #cfd9e5;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.sm-field input:focus {
+  border-color: #0e5aa7;
+  box-shadow: 0 0 0 3px rgba(14, 90, 167, 0.12);
+}
+
+.sm-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 6px;
+}
+
+/* Actions column */
+.actions-cell {
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .site-mgmt-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sm-form-actions {
+    flex-direction: column-reverse;
+  }
+}
