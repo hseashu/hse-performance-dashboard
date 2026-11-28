@@ -266,32 +266,41 @@ async function initializeUserInterface() {
   const name = profile.name || profile.email || "User";
   const role = profile.role || "Site User";
 
-  $("sidebar-user-name").textContent = name;
-  $("sidebar-user-role").textContent = role;
-  $("sidebar-avatar").textContent = name.charAt(0).toUpperCase();
-  const avatarEl = $("topbar-avatar");
-  if (avatarEl) avatarEl.style.display = "none"; // Hide 'A' icon
-  $("welcome-heading").textContent = `Welcome, ${name}`;
+  // Safe setters (null check)
+  const setText = (id, val) => { const el = $(id); if (el) el.textContent = val; };
+  const setClass = (id, cls, add) => { const el = $(id); if (el) el.classList.toggle(cls, add); };
+
+  setText("sidebar-user-name", name);
+  setText("sidebar-user-role", role);
+  setText("sidebar-avatar", name.charAt(0).toUpperCase());
+  
+  // Topbar avatar is now hidden intentionally
+  const topAvatar = $("topbar-avatar");
+  if (topAvatar) {
+    topAvatar.textContent = name.charAt(0).toUpperCase();
+    topAvatar.style.display = "none";
+  }
 
   const isAdmin = role.toLowerCase() === "admin";
 
-  $("admin-nav").classList.toggle("hidden", !isAdmin);
+  setClass("admin-nav", "hidden", !isAdmin);
 
   if (!isAdmin) {
     state.selectedSite = profile.siteId || "";
   }
 
-  $("current-date").textContent =
-    new Date().toLocaleDateString("en-IN", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric"
-    });
+  setText("current-date", new Date().toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  }));
 
-  $("app-version").textContent = `Version ${APP_CONFIG.VERSION}`;
+  // App version footer is removed, safe setter
+  setText("app-version", `Version ${APP_CONFIG.VERSION}`);
 
   state.selectedMonth = currentMonth();
-  $("month-selector").value = state.selectedMonth;
+  const monthSelector = $("month-selector");
+  if (monthSelector) monthSelector.value = state.selectedMonth;
 
   await loadSites();
 }
@@ -314,13 +323,10 @@ async function loadSites() {
   const selector = $("site-selector");
   selector.innerHTML = "";
 
-    const siteWrap = document.querySelector(".site-selector-wrap");
   if (state.profile.role.toLowerCase() === "admin") {
     selector.disabled = false;
-    if(siteWrap) siteWrap.style.display = "block";
   } else {
     selector.disabled = true;
-    if(siteWrap) siteWrap.style.display = "none"; // Hide filter for site user
   }
 
   state.sites.forEach(site => {
