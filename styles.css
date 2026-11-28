@@ -1856,39 +1856,115 @@ body.is-fullscreen .hse-board {
 .hb-logo { height: 30px; max-width: 80px; object-fit: contain; }
 .hb-logo-space { width: 40px; }
 
-/* SAFE MANHOURS CARDS */
+/* SAFE MANHOURS - PREMIUM DESIGN */
+
 .hb-manhours-wrap {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   flex-shrink: 0;
 }
 
-/* THIS MONTH - OPTION 1 */
+/* COMMON CARD */
 .hb-mh-card {
   flex: 1;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(135deg, #EAF4FF 0%, #B9DCFF 100%);
   color: #12345A;
   border: 1px solid #4A9BFF;
-  border-radius: 6px;
-  padding: 8px;
+  border-radius: 10px;
+  padding: 10px 8px;
   text-align: center;
+  box-shadow: 0 3px 8px rgba(18, 52, 90, 0.12);
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease,
+              background 0.3s ease;
 }
 
-/* ENTIRE PROJECT - OPTION 2 */
+/* THIS MONTH GRADIENT EFFECT */
+.hb-mh-card:not(.blue)::before {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  top: -65px;
+  right: -35px;
+  pointer-events: none;
+}
+
+/* ENTIRE PROJECT GREEN GRADIENT */
 .hb-mh-card.blue {
   background: linear-gradient(135deg, #087A45 0%, #064D32 100%);
   color: #FFFFFF;
   border: 1px solid #16A34A;
-  border-radius: 6px;
-  padding: 8px;
-  text-align: center;
+  box-shadow: 0 3px 8px rgba(6, 77, 50, 0.20);
 }
 
-/* SAFE MANHOURS ICON */
-.hb-mh-icon {
-  font-size: 25px;
-  line-height: 1;
-  margin-bottom: 5px;
+/* GREEN CARD DECORATION */
+.hb-mh-card.blue::before {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.09);
+  top: -65px;
+  right: -35px;
+  pointer-events: none;
+}
+
+/* SHIELD SVG ICON */
+.hb-mh-shield {
+  display: block;
+  width: 38px;
+  height: 43px;
+  margin: 0 auto 6px;
+  position: relative;
+  z-index: 1;
+}
+
+/* CARD TEXT */
+.hb-mh-title,
+.hb-mh-val,
+.hb-mh-sub {
+  position: relative;
+  z-index: 1;
+}
+
+.hb-mh-title {
+  font-weight: 700;
+}
+
+.hb-mh-val {
+  font-weight: 800;
+}
+
+/* BOTTOM LABEL */
+.hb-mh-sub {
+  margin: 5px -2px -2px;
+  padding: 5px 2px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.38);
+  font-weight: 700;
+}
+
+.hb-mh-card.blue .hb-mh-sub {
+  background: rgba(0,0,0,0.15);
+}
+
+/* DESKTOP HOVER EFFECT */
+@media (hover: hover) {
+  .hb-mh-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 9px 18px rgba(18,52,90,0.22);
+  }
+
+  .hb-mh-card.blue:hover {
+    box-shadow: 0 9px 18px rgba(6,77,50,0.30);
+  }
 }
 .hb-mh-card.blue .hb-mh-title, .hb-mh-card.blue .hb-mh-sub { color: #e2ecf7; }
 .hb-mh-title { font-size: clamp(10px, 0.9vw, 12px); font-weight: 600; color: #475467; text-transform: uppercase; }
