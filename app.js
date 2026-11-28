@@ -733,7 +733,11 @@ function navigateTo(page) {
     $("other-page-content").innerHTML = "";
 
 if (page === "sites") {
-  renderSiteManagement();
+  if (window.__hseSiteManagement) {
+    window.__hseSiteManagement().render();
+  } else {
+    renderSiteManagement();
+  }
 }
   }
 
