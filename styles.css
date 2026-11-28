@@ -1615,3 +1615,78 @@ tbody td:not(:first-child) {
     text-align: center;
   }
 }
+/* ================================================
+   TRAINING MODULE EXTRAS
+================================================ */
+
+.de-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0e5aa7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 8px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid #e2ecf7;
+}
+
+.de-training-section {
+  background: #f7fbff;
+  border: 1px solid #d6e6f6;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.de-training-section.hidden {
+  display: none;
+}
+
+/* Training view panel on dashboard */
+.training-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.training-block {
+  border: 1px solid #e2ecf7;
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #fbfdff;
+}
+
+.training-block h4 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #0e5aa7;
+}
+
+.training-block table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.training-block th,
+.training-block td {
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid #eef3f9;
+}
+
+.training-block th {
+  font-weight: 600;
+  color: #475467;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+@media (max-width: 640px) {
+  .training-view {
+    grid-template-columns: 1fr;
+  }
+}
