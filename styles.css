@@ -1699,7 +1699,8 @@ body.is-fullscreen .sidebar,
 body.is-fullscreen .topbar,
 body.is-fullscreen .dashboard-context,
 body.is-fullscreen .app-footer,
-body.is-fullscreen .hb-header-text p { 
+body.is-fullscreen .hb-header-text p,
+body.is-fullscreen .hb-footer { 
   display: none !important; 
 }
 
@@ -1810,7 +1811,10 @@ body.is-fullscreen .hse-board {
   border-bottom: 1px solid #eef3f9;
 }
 .hb-table th { background: #e2ecf7; font-size: clamp(9px, 0.8vw, 11px); color: #475467; text-align: left; }
-.hb-table .val { text-align: right; font-weight: 700; color: #0e5aa7; }
+.hb-table .val { text-align: center; font-weight: 700; color: #0e5aa7; }
+.hb-table th { text-align: center !important; }
+.hb-logo { height: 30px; max-width: 80px; object-fit: contain; }
+.hb-logo-space { width: 40px; }
 
 /* SAFE MANHOURS CARDS */
 .hb-manhours-wrap {
