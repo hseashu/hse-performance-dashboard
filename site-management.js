@@ -22,6 +22,7 @@ function smModule() {
   }
 
   const { apiRequest, state, $, escapeHTML, showMessage } = H;
+  const L = window.__hseLoader;
 
   /* =====================================================
      1. RENDERERS
@@ -244,19 +245,43 @@ function smModule() {
      3. API CALLS
   ===================================================== */
 
-  async function loadList() {
+    async function loadList() {
     if (state.profile?.role?.toLowerCase() !== "admin") {
       renderDenied();
       return;
     }
 
     try {
-      renderContainer('<p>Loading sites...</p>');
+      // Show table skeleton while fetching
+      renderContainer(`
+        <div class="site-mgmt-header">
+          <div>
+            <h3>All Project Sites</h3>
+            <p>Loading...</p>
+          </div>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Site</th><th>Capacity</th><th>Location</th>
+                <th>State</th><th>Country</th><th>Start Date</th>
+                <th>Last LTI</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sm-skeleton-body"></tbody>
+          </table>
+        </div>
+      `);
+
+      const skelBody = $("sm-skeleton-body");
+      if (skelBody && L) {
+        L.skeletonRows(skelBody, 4, 9);
+      }
 
       const result = await apiRequest("sites.adminList");
       const sites = Array.isArray(result.sites) ? result.sites : [];
 
-      // Sync into global state so other modules see them
       state.sites = sites;
 
       if (!sites.length) {
@@ -278,7 +303,7 @@ function smModule() {
     return loadList();
   }
 
-  async function submitForm(originalSite) {
+    async function submitForm(originalSite) {
     const form = $("sm-form");
     const submitBtn = $("sm-submit-btn");
     if (!form || !submitBtn) return;
@@ -298,8 +323,10 @@ function smModule() {
       return;
     }
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Saving...";
+    const actionLabel = originalSite ? "Updating site..." : "Creating site...";
+
+    if (L) L.show(actionLabel);
+    if (L) L.buttonBusy(submitBtn, true, "Saving...");
 
     try {
       if (originalSite) {
@@ -312,6 +339,7 @@ function smModule() {
         showMessage("Site created.", "success");
       }
 
+      if (L) L.hide();
       await loadList();
 
     } catch (error) {
@@ -322,15 +350,18 @@ function smModule() {
       );
 
     } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalSite ? "Update Site" : "Create Site";
+      if (L) L.buttonBusy(submitBtn, false);
+      if (L) L.hide();
     }
   }
 
-  async function toggleSite(siteId, targetStatus, btn) {
-    const originalText = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = "Saving...";
+    async function toggleSite(siteId, targetStatus, btn) {
+    const label = targetStatus === "Active"
+      ? "Activating site..."
+      : "Deactivating site...";
+
+    if (L) L.show(label);
+    if (L) L.buttonBusy(btn, true, "Saving...");
 
     try {
       await apiRequest("sites.toggle", {
@@ -338,6 +369,8 @@ function smModule() {
       });
 
       showMessage("Site " + targetStatus.toLowerCase() + ".", "success");
+
+      if (L) L.hide();
       await loadList();
 
     } catch (error) {
@@ -346,8 +379,10 @@ function smModule() {
         "Failed: " + (error.message || "Unknown error"),
         "error"
       );
-      btn.disabled = false;
-      btn.textContent = originalText;
+      if (L) L.buttonBusy(btn, false);
+
+    } finally {
+      if (L) L.hide();
     }
   }
 
