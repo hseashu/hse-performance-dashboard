@@ -369,8 +369,18 @@ async function loadSites() {
 async function loadDashboard() {
   if (!state.selectedSite) return;
 
-  const content = $("dashboard-page");
-  if (content) content.innerHTML = '<div style="padding:50px;text-align:center;color:#666;"><div class="hse-loader-spinner" style="margin:0 auto 15px;"></div>Loading dashboard data...</div>';
+  // Purana code:
+  // const content = $("kpi-grid");
+  // content.innerHTML = "<p>Loading dashboard data...</p>";
+
+  // Corrected code:
+  const board = $("dashboard-page");
+  if (board) {
+    board.innerHTML = `<div style="padding:50px;text-align:center;color:#666;">
+      <div class="hse-loader-spinner" style="margin:0 auto 15px;"></div>
+      Loading dashboard data...
+    </div>`;
+  }
 
   try {
     const result = await apiRequest("dashboard.get", {
@@ -380,18 +390,19 @@ async function loadDashboard() {
 
     state.dashboard = result.data || result.dashboard || result;
 
+    // Call new Dashboard engine
     if (window.__hseDashboard) {
       window.__hseDashboard().render(state.dashboard);
     } else {
-      renderDashboard(state.dashboard);
+      console.warn("New dashboard engine not loaded");
     }
 
   } catch (error) {
     console.error("Dashboard loading error:", error);
-
-    content.innerHTML =
-      '<p class="message error">Unable to load dashboard data.</p>';
-
+    const board = $("dashboard-page");
+    if (board) {
+      board.innerHTML = '<p class="message error" style="padding:20px;">Unable to load dashboard data.</p>';
+    }
     showMessage("Dashboard data could not be loaded.", "error");
   }
 }
@@ -735,13 +746,13 @@ function navigateTo(page) {
   $("page-title").textContent = title[0];
   $("page-subtitle").textContent = title[1];
 
-  const isDashboard = page === "dashboard";
+    const isDashboard = page === "dashboard";
 
   $("dashboard-page").classList.toggle("hidden", !isDashboard);
   $("other-page").classList.toggle("hidden", isDashboard);
   $("dashboard-context").classList.toggle("hidden", !isDashboard);
-
-    if (!isDashboard) {
+   
+  if (!isDashboard) {
     $("other-page-heading").textContent = title[0];
     $("other-page-description").textContent = "";
     $("other-page-content").innerHTML = "";
