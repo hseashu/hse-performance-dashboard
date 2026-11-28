@@ -1478,3 +1478,140 @@ tbody td:not(:first-child) {
     flex-direction: column-reverse;
   }
 }
+/* ================================================
+   DAILY DATA ENTRY MODULE
+================================================ */
+
+.de-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.de-header h3 {
+  margin: 0 0 4px;
+}
+
+.de-header p {
+  margin: 0;
+  color: #667085;
+  font-size: 13px;
+}
+
+.de-tabs {
+  display: flex;
+  gap: 6px;
+  background: #f2f6fb;
+  padding: 4px;
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+
+.de-tab {
+  border: none;
+  background: transparent;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #475467;
+  transition: all 0.15s ease;
+}
+
+.de-tab:hover {
+  background: #e6eef7;
+}
+
+.de-tab.active {
+  background: #0e5aa7;
+  color: #ffffff;
+}
+
+.de-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.de-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.de-field-wide {
+  grid-column: 1 / -1;
+}
+
+.sm-field textarea,
+.sm-field select {
+  padding: 10px 12px;
+  border: 1px solid #cfd9e5;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  background: #ffffff;
+  resize: vertical;
+}
+
+.sm-field textarea:focus,
+.sm-field select:focus {
+  border-color: #0e5aa7;
+  box-shadow: 0 0 0 3px rgba(14, 90, 167, 0.12);
+}
+
+.de-calc-preview {
+  background: #f2f8ff;
+  border: 1px solid #d6e6f6;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #10243a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.de-calc-preview small {
+  color: #667085;
+  font-size: 12px;
+}
+
+.de-hint {
+  background: #fffbe6;
+  border-left: 3px solid #f5c518;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #665e00;
+  margin: 0;
+}
+
+/* ================================================
+   DASHBOARD RENDER FIXES (Monthly + Overall)
+   ensure backend shape matches frontend renderer
+================================================ */
+
+.kpi-description {
+  font-size: 11px;
+  color: #667085;
+  margin-top: 4px;
+}
+
+@media (max-width: 640px) {
+  .de-tabs {
+    width: 100%;
+  }
+
+  .de-tab {
+    flex: 1;
+    text-align: center;
+  }
+}
