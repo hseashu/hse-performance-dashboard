@@ -733,12 +733,9 @@ function navigateTo(page) {
     $("other-page-content").innerHTML = "";
 
 if (page === "sites") {
-  if (window.__hseSiteManagement) {
-    window.__hseSiteManagement().render();
-  } else {
-    renderSiteManagement();
-  }
+  renderSiteManagement();
 }
+  }
 
   $("sidebar").classList.remove("open");
 }
@@ -859,15 +856,6 @@ async function startApplication() {
 
     showLogin();
   }
-}
-
-
-
-/* === HSE MODULE BRIDGE (do not remove) === */
-window.__hse.apiRequest = apiRequest;
-window.__hse.$ = $;
-window.__hse.escapeHTML = escapeHTML;
-window.__hse.showMessage = showMessage;
 }
 
 startApplication();
