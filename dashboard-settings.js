@@ -54,6 +54,28 @@ function dsModule() {
         </div>
 
         <div class="ds-grid">
+          <!-- BRANDING LOGO -->
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Branding Logos</h3>
+              <p>Upload left and right dashboard logos (Max 1MB).</p>
+            </div>
+            <div class="ds-logo-uploader">
+              <div class="ds-logo-box">
+                <span>Left Logo</span>
+                <div class="ds-preview" id="ds-logo-left-preview" style="height:80px;"></div>
+                <input type="file" id="ds-logo-left-file" accept="image/png, image/jpeg, image/webp" style="display:none;" />
+                <button class="btn-small" id="ds-logo-left-btn">Upload Left</button>
+              </div>
+              <div class="ds-logo-box">
+                <span>Right Logo</span>
+                <div class="ds-preview" id="ds-logo-right-preview" style="height:80px;"></div>
+                <input type="file" id="ds-logo-right-file" accept="image/png, image/jpeg, image/webp" style="display:none;" />
+                <button class="btn-small" id="ds-logo-right-btn">Upload Right</button>
+              </div>
+            </div>
+          </div>
+
           <!-- KEY MESSAGE IMAGE -->
           <div class="panel">
             <div class="panel-header">
@@ -99,9 +121,56 @@ function dsModule() {
      EVENTS
   ===================================================== */
 
-  function bindEvents(keyMsg, emgList) {
+    function bindEvents(keyMsg, emgList) {
     // Back
     $("ds-back-btn").addEventListener("click", () => navigateTo("dashboard"));
+
+    // --- LOGO UPLOAD LOGIC ---
+    async function loadLogos() {
+      try {
+        const res = await apiRequest("branding.get");
+        const logos = res.data || {};
+        if (logos.left) $("ds-logo-left-preview").innerHTML = `<img src="${logos.left.dataUrl}" style="max-height:100%; max-width:100%; object-fit:contain;" />`;
+        if (logos.right) $("ds-logo-right-preview").innerHTML = `<img src="${logos.right.dataUrl}" style="max-height:100%; max-width:100%; object-fit:contain;" />`;
+      } catch(e) {}
+    }
+    loadLogos();
+
+    function setupLogoUploader(pos) {
+      const fileInp = $(`ds-logo-${pos}-file`);
+      const btn = $(`ds-logo-${pos}-btn`);
+      const preview = $(`ds-logo-${pos}-preview`);
+
+      btn.addEventListener("click", () => fileInp.click());
+      fileInp.addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        if (file.size > 1024 * 1024) return showMessage("File too large (max 1MB).", "error");
+
+        const reader = new FileReader();
+        reader.onload = async (ev) => {
+          const base64 = ev.target.result;
+          if (L) L.show("Uploading logo...");
+          try {
+            await apiRequest("branding.upload", {
+              position: pos,
+              base64Data: base64.split(",")[1],
+              mimeType: file.type
+            });
+            showMessage("Logo uploaded.", "success");
+            if (L) L.hide();
+            preview.innerHTML = `<img src="${base64}" style="max-height:100%; max-width:100%; object-fit:contain;" />`;
+          } catch (err) {
+            if (L) L.hide();
+            showMessage("Upload failed: " + err.message, "error");
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+    setupLogoUploader("left");
+    setupLogoUploader("right");
+    // --------------------------
 
     // Image Upload
     const fileInp = $("ds-msg-file");
