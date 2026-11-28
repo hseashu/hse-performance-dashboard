@@ -1790,16 +1790,56 @@ body.is-fullscreen .hse-board {
 .hb-fs-btn:hover { background: rgba(255,255,255,0.4); }
 .hb-fs-btn svg { width: 20px; height: 20px; }
 
-/* SUBHEADER */
+/* PREMIUM SUBHEADER */
 .hb-subheader {
-  background: #1e7a3d;
-  color: #fff;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    110deg,
+    #0755C9 0%,
+    #0878D8 55%,
+    #00A6E8 100%
+  );
+  color: #FFFFFF;
   text-align: center;
-  font-weight: 700;
+  font-weight: 800;
   font-size: clamp(12px, 1.4vw, 14px);
-  padding: 4px;
+  padding: 6px 10px;
   letter-spacing: 2px;
+  border-top: 1px solid rgba(255,255,255,0.35);
+  border-bottom: 1px solid rgba(0,75,160,0.35);
+  box-shadow: 0 3px 8px rgba(0,105,220,0.22);
   flex-shrink: 0;
+  transition: box-shadow 0.3s ease;
+}
+
+/* LIGHT GLOSS EFFECT */
+.hb-subheader::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    110deg,
+    transparent,
+    rgba(255,255,255,0.18),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* HOVER EFFECT */
+@media (hover: hover) {
+  .hb-subheader:hover {
+    box-shadow: 0 4px 13px rgba(0,105,220,0.35);
+  }
+
+  .hb-subheader:hover::before {
+    left: 140%;
+    transition: left 0.8s ease;
+  }
 }
 
 /* GRID */
@@ -1895,12 +1935,14 @@ body.is-fullscreen .hse-board {
   pointer-events: none;
 }
 
-/* ENTIRE PROJECT GREEN GRADIENT */
+/* ENTIRE PROJECT - LIGHT EMERALD GREEN */
 .hb-mh-card.blue {
-  background: linear-gradient(135deg, #087A45 0%, #064D32 100%);
+  background: linear-gradient(135deg, #22C55E 0%, #0F9F63 100%);
   color: #FFFFFF;
-  border: 1px solid #16A34A;
-  box-shadow: 0 3px 8px rgba(6, 77, 50, 0.20);
+  border: 1px solid #4ADE80;
+  border-radius: 6px;
+  padding: 8px;
+  text-align: center;
 }
 
 /* GREEN CARD DECORATION */
